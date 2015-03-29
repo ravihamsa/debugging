@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Events</title>
+
+    <style>
+        .mid-link {
+            color:green;
+        }
+
+        .special-link {
+            color:red;
+        }
+        
+        .overflow-hidden {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<ul>
+    <li><a href="#something"class="link top-link">link1</a></li>
+    <li><a href="#something"class="link top-link">link2</a></li>
+    <li><a href="#something"class="link top-link">link3</a></li>
+    <li><a href="#something"class="link top-link">link4</a></li>
+    <li><a href="#something"class="link top-link">link5</a></li>
+    <li><a href="http://google.com"class="link mid-link special-link">google</a></li>
+    <li><a href="#something"class="link mid-link">link7</a></li>
+    <li><a href="#something"class="link mid-link">link8</a></li>
+    <li><a href="#something"class="link mid-link">link9</a></li>
+    <li><a href="#something"class="link mid-link">link10</a></li>
+    <li><a href="#something"class="link bottom-link">link11</a></li>
+    <li><a href="#something"class="link bottom-link">link12</a></li>
+    <li><a href="#something"class="link bottom-link">link13</a></li>
+    <li><a href="#something"class="link bottom-link">link14</a></li>
+    <li><a href="#something"class="link bottom-link">link15</a></li>
+</ul>
+
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+<script>
+
+    var oldAddEventListener = EventTarget.prototype.addEventListener;
+    EventTarget.prototype.addEventListener = function(){
+        console.log('adding event listener on', this,  arguments);
+        if(this.classList && this.classList.contains('special-link')){
+            console.trace();
+        }
+        oldAddEventListener.apply(this, arguments);
+    }
+
+    var oldAdd = $.prototype.addClass;
+    $.prototype.addClass = function(){
+        console.log('adding class to ', this, arguments);
+        oldAdd.apply(this, arguments);
+    }
+
+    var clickHandler = function (e) {
+
+        console.log(arguments, 'handler1');
+    }
+
+    var clickHandler2 = function (e) {
+        console.log(arguments, 'handler2');
+    }
+
+
+    var clickHandler3 = function (e) {
+        e.preventDefault();
+        console.log(arguments, 'handler3');
+    }
+
+
+
+    var links = document.querySelectorAll('.link');
+    for(var i in links){
+        var el = links[i];
+        if(el.nodeName){
+            links[i].addEventListener('click', clickHandler);
+        }
+
+    }
+
+    var links = document.querySelectorAll('.mid-link');
+    for(var i in links){
+        var el = links[i];
+        if(el.nodeName){
+            links[i].addEventListener('click', clickHandler2);
+        }
+
+    }
+
+    var links = document.querySelectorAll('.special-link');
+    for(var i in links){
+        var el = links[i];
+        if(el.nodeName){
+            links[i].addEventListener('click', clickHandler3);
+        }
+    }
+
+
+    $('body').addClass('overflow-hidden');
+
+
+
+
+</script>
+</body>
+</html>
