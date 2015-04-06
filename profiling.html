@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>profiling</title>
+    <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+    <style>
+        .table1  {
+            background-color: red;
+        }
+
+        .table2  {
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container"></div>
+
+<script>
+
+    var template = '<tr> <td>ravi</td> <td>demoing</td> <td>profiling</td></tr>';
+    var fragment = $(template);
+
+    var table = $('<table class="table1"> </table>').appendTo('.container');
+    var table2 = $('<table class="table2"> </table>').appendTo('.container');
+
+    console.profile('table1')
+    console.time('table');
+    for(var i=0; i<50; i++){
+        table.append(template);
+    }
+    console.timeEnd('table');
+    console.profileEnd();
+
+    console.profile('table2')
+    console.time('table2');
+    for(var i=0; i<50; i++){
+        table2.append(fragment.clone());
+    }
+    console.timeEnd('table2');
+    console.profileEnd();
+
+
+
+
+</script>
+</body>
+</html>
