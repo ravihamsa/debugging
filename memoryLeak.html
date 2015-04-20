@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Memory Leak</title>
+</head>
+<body>
+
+<div class="container">
+
+</div>
+
+<script>
+
+    var container = document.createElement('div');
+
+    (function(){
+
+        for(var i=0; i<100; i++){
+            var ele = document.createElement('div');
+            ele.innerHTML = '<span> My Index is '+i+' </span>';
+            container.appendChild(ele);
+        }
+    })()
+</script>
+
+</body>
+</html>
