@@ -14,14 +14,12 @@
 
     var container = document.createElement('div');
 
-    (function(){
-
-        for(var i=0; i<100; i++){
-            var ele = document.createElement('div');
-            ele.innerHTML = '<span> My Index is '+i+' </span>';
-            container.appendChild(ele);
-        }
-    })()
+    for (var i = 0; i < 100; i++) {
+        var ele = document.createElement('div');
+        ele.innerHTML = '<span> My Index is ' + i + ' </span>';
+        container.appendChild(ele);
+    }
+    ele = null;
 </script>
 
 </body>
