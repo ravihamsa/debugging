@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Function Performance</title>
+</head>
+<body>
+
+
+<script>
+
+    var doNothingFunction = function(number){
+        return number;
+    }
+
+    var bumpUp = function(number){
+        return number+1;
+    }
+
+    var doDOM = function(number){
+        var span = document.createElement('span');
+        //span.innerHTML = number;
+        document.body.appendChild(span);
+    }
+
+
+    var functionIndex = {};
+    var defineFunction = function(number){
+        functionIndex[number] = function(){
+            return number;
+        }
+    }
+
+    var defineVar = function(number){
+        this[number] = [number];
+    }
+
+    var defineVarWithString = function(number){
+        this['var'+number] = [number];
+    }
+
+    var a;
+    console.time('doNothingFunction');
+    a=0;
+    for(var i=0; i<10000; i++){
+        doNothingFunction(a);
+    }
+    console.timeEnd('doNothingFunction');
+
+
+    console.time('bumpUp');
+    a=0;
+    for(var i=0; i<10000; i++){
+        bumpUp(a);
+    }
+    console.timeEnd('bumpUp');
+
+
+    console.time('doDOM');
+    a=0;
+    for(var i=0; i<10000; i++){
+        doDOM(a);
+    }
+    console.timeEnd('doDOM');
+
+
+    console.time('defineFunction');
+    for(var i=0; i<10000; i++){
+        defineFunction(i);
+    }
+    console.timeEnd('defineFunction');
+
+
+    console.time('defineVar');
+    for(var i=0; i<10000; i++){
+        defineVar(i);
+    }
+    console.timeEnd('defineVar');
+
+
+
+    console.time('defineVarWithString');
+    for(var i=0; i<10000; i++){
+        defineVarWithString(i);
+    }
+    console.timeEnd('defineVarWithString');
+
+
+</script>
+
+</body>
+</html>
